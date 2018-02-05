@@ -51,6 +51,7 @@ extern "C"
 #include <pthread.h>
 #include <sys/select.h>
 #include <sys/socket.h>
+#include <linux/socket.h>
 #include <linux/if.h>
 #include <linux/if_addr.h>
 #include <linux/rtnetlink.h>

@@ -233,8 +233,6 @@ RET IPACM_OffloadManager::addDownstream(const char * downstream_name, const Pref
 	if (cache_need)
 	{
 		IPACMDBG_H("addDownstream name(%s) currently not support in ipa \n", downstream_name);
-		/* add ipacm restart support */
-		push_iface_up(downstream_name, false);
 
 		/* copy to the cache */
 		for(int i = 0; i < MAX_EVENT_CACHE ;i++)
@@ -796,7 +794,7 @@ bool IPACM_OffloadManager::search_framwork_cache(char * interface_name)
 int IPACM_OffloadManager::push_iface_up(const char * if_name, bool upstream)
 {
 	ipacm_cmd_q_data evt_data;
-	ipacm_event_data_fid *data_fid;
+	ipacm_event_data_fid *data_fid = NULL;
 	ipacm_event_data_mac *data = NULL;
 	int index;
 
@@ -869,7 +867,7 @@ int IPACM_OffloadManager::push_iface_up(const char * if_name, bool upstream)
 		evt_data.event = IPA_WLAN_STA_LINK_UP_EVENT;
 		evt_data.evt_data = data;
 		IPACMDBG_H("Posting IPA_WLAN_STA_LINK_UP_EVENT with if index: %d\n",
-			data_fid->if_index);
+			data->if_index);
 		IPACM_EvtDispatcher::PostEvt(&evt_data);
 	}
 
